@@ -301,34 +301,58 @@ public class ListaDoble<T> implements Iterable<T> {
 		return nodoEncontrado;
 	}
 
+	public void insertarOrdenado(T dato) {
+		Nodo<T> nuevoNodo = new Nodo<T>(dato);
+
+	}
+
+	public void intercambioNodos(Nodo<T> n1, Nodo<T> n2) {
+
+		Nodo<T> n1Anterior = n1.getAnterior();
+		Nodo<T> n1Despues = n1.getSiguiente();
+		Nodo<T> n2Anterior = n2.getAnterior();
+		Nodo<T> n2Despues = n2.getSiguiente();
+
+		if (n1 == cabeza) {
+			cola = n1;
+		}
+
+		if (n2 == cabeza) {
+			cola = n1;
+		}
+
+		if (n1 == cola) {
+			cabeza = n2;
+		}
+
+		if (n2 == cola) {
+			cabeza = n1;
+		}
+
+		n1.setAnterior(n1Anterior);
+		n1.setSiguiente(n1Despues);
+
+		n2.setAnterior(n2Anterior);
+		n2.setSiguiente(n2Despues);
+
+	}
+
 	/**
 	 * a negative integer, menor zero, igual or a positive integer mayot
 	 */
 	public void ordenar() {
 		Nodo<T> nodoBase = cabeza;
-		while (nodoBase != null) {
+		while (nodoBase.getSiguiente() != null) {
 
 			if (nodoBase.compareTo(nodoBase.getSiguiente().getDato()) == 1) {
 
 				Nodo<T> nodoSiguiente = nodoBase.getSiguiente();
 				Nodo<T> aux = nodoBase;
 
-				nodoBase.setAnterior(nodoSiguiente);
-				nodoBase.setSiguiente(nodoSiguiente.getSiguiente());
-
-				nodoSiguiente.setSiguiente(aux);
-				nodoSiguiente.setAnterior(aux.getAnterior());
-
-				if (nodoBase.getSiguiente() == null) {
-					cola = nodoBase;
-				}
-
-				if (nodoSiguiente.getAnterior() == null) {
-					cabeza = nodoSiguiente;
-				}
-
-				nodoBase = nodoBase.getSiguiente();
 			}
+			System.out.println(nodoBase.getDato() + " => " + nodoBase.getSiguiente().getDato());
+
+			nodoBase = nodoBase.getSiguiente();
 
 		}
 	}

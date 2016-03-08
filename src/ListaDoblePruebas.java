@@ -13,6 +13,7 @@ public class ListaDoblePruebas {
 		
 		lista.insertarUltimo(3);
 		lista.insertarUltimo(2);
+		lista.insertarDespuesDe(5, 3);
 
 		
 		
@@ -20,7 +21,7 @@ public class ListaDoblePruebas {
 
 		
 		for(Integer l1 : lista){
-			System.out.println(l1);
+			System.out.println("=> "+l1);
 		}
 		
 
