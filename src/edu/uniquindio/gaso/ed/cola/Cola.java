@@ -24,23 +24,22 @@ public class Cola<T> {
 			nuevoNodo = new Nodo<T>(dato);
 			primero = ultimo = nuevoNodo;
 		} else {
-			nuevoNodo = new Nodo<T>(dato, null, primero);
-			primero.setAnterior(nuevoNodo);
+			nuevoNodo = new Nodo<T>(dato,ultimo,null);
+			ultimo.setAnterior(nuevoNodo);
 			ultimo = nuevoNodo;
+
+			
+			
 		}
 		tamano++;
 	}
 	
 	public void dequeve(){
 		if (!estaVacia()){
+	
+			primero = primero.getAnterior();
+			primero.setSiguiente(null);
 		
-			if (tamano == 1){
-				primero = ultimo = null;
-			}else{
-				primero = primero.getAnterior();
-				System.out.println(primero);
-			}
-			
 			tamano--;
 		
 		}

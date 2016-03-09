@@ -10,6 +10,7 @@ public class ColaPruebas {
 		cola.enqueve(2);
 		cola.enqueve(3);
 		
+	
 		cola.dequeve();
 		cola.dequeve();
 
