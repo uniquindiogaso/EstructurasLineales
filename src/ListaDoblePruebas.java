@@ -23,14 +23,7 @@ public class ListaDoblePruebas {
 		for(Integer l1 : lista){
 			System.out.println("=> "+l1);
 		}
-		
 
-		lista.ordenar();
-		
-		
-		for(Integer l11 : lista){
-			System.out.println(l11);
-		}
 
 	}
 
