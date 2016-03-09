@@ -51,7 +51,7 @@ public class Pila<T> {
 			if (tamano == 1) {
 				top = null;
 			} else {
-				top = top.getAnterior();
+				top = top.getSiguiente();
 			}
 			tamano--;
 		}
