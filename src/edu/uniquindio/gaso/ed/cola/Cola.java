@@ -34,15 +34,30 @@ public class Cola<T> {
 		tamano++;
 	}
 	
-	public void dequeve(){
+	public T dequeve(){
+		T dato  = null;
 		if (!estaVacia()){
-	
+			dato = primero.getDato();
 			primero = primero.getAnterior();
-			primero.setSiguiente(null);
+			if ( primero != null){
+				primero.setSiguiente(null);
+			}
+			
 		
 			tamano--;
 		
 		}
+		
+		return dato;
+	}
+	
+	/**
+	 * Obtener valor de la Cabeza de la Estructura
+	 * 
+	 * @return dato contenido en la cabeza de la estructura
+	 */
+	public T obtenerPrimero() {
+		return primero == null ? null : primero.getDato();
 	}
 
 }
