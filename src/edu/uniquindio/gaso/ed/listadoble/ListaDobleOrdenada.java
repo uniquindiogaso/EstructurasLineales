@@ -44,102 +44,68 @@ public class ListaDobleOrdenada<T> implements Iterable<T> {
 	}
 
 	/**
-	 * Agregar a la Lista en la Primera posicion un dato
+	 * Agregar elemento de manera ordenada a la Lista Doble
 	 * 
 	 * @param dato
-	 *            , valor a ingresar en la estructura
+	 *            Objeto a ingresar a la Lista
 	 */
-	public void insertarPrimero(T dato) {
+	public void insertar(T dato) {
 		Nodo<T> nuevoNodo;
+
 		if (estaVacia()) {
-			nuevoNodo = new Nodo<T>(dato);
+			nuevoNodo = new Nodo<>(dato);
 			cabeza = cola = nuevoNodo;
 		} else {
 
-			// El Siguiente sera el que antes era cabeza
-			nuevoNodo = new Nodo<T>(dato, cabeza);
+			Nodo<T> nodoBase = cabeza;
 
-			cabeza.setAnterior(nuevoNodo);
+			while (nodoBase != null) {
 
-			if (cabeza.getSiguiente() == null) {
-				cola = cabeza;
+				// ( va despues )
+				if (nodoBase.compareTo(dato) == -1) {
+
+					// Es el ultimo
+					if (nodoBase == cola) {
+						nuevoNodo = new Nodo<>(dato, null, nodoBase);
+						nodoBase.setSiguiente(nuevoNodo);
+						cola = nuevoNodo;
+						tamano++;
+						break;
+					}
+
+				} else {
+					// Puede ir antes
+
+					nuevoNodo = new Nodo<>(dato, nodoBase);
+
+					if (nodoBase != cabeza) {
+						nodoBase.getAnterior().setSiguiente(nuevoNodo);
+						nuevoNodo.setAnterior(nodoBase.getAnterior());
+						nodoBase.setAnterior(nuevoNodo);
+					} else {
+						nodoBase.setAnterior(nuevoNodo);
+						cabeza = nuevoNodo;
+					}
+
+					tamano++;
+					break;
+				}
+
+				nodoBase = nodoBase.getSiguiente();
+
 			}
-
-			// El nuevo cabeza es el Nodo a Insertar
-			cabeza = nuevoNodo;
-
 		}
 
-		tamano++;
 	}
-
+	
 	/**
-	 * Agregar al final de la estructura un dato
-	 * 
-	 * @param dato
-	 *            , valor a ingresar en la estructura
+	 * Permite Insertar de Manera Ordenada una coleccion de objetos
+	 * @param coleccion Lista Doble que contiene los objetos a insertar
 	 */
-	public void insertarUltimo(T dato) {
-		Nodo<T> nuevoNodo;
-		if (estaVacia()) {
-			nuevoNodo = new Nodo<T>(dato);
-			cabeza = cola = nuevoNodo;
-		} else {
-			nuevoNodo = new Nodo<T>(dato, null, cola);
-			cola.setSiguiente(nuevoNodo);
-			cola = nuevoNodo;
-		}
-
-		tamano++;
-	}
-
-	/**
-	 * Agregar dato a estructura despues de un dato especificado
-	 * 
-	 * @param dato
-	 *            - valor a ingresar en la estructura
-	 * @param datoSiguiente
-	 *            - valor que se tomara como base para asignar despues de el
-	 */
-	public void insertarDespuesDe(T dato, T datoSiguiente) {
-		Nodo<T> nodoBase = buscar(datoSiguiente);
-		if (nodoBase != null) {
-			// Si el dato siguiente es el ultimo
-			if (nodoBase.getSiguiente() == null) {
-				insertarUltimo(dato);
-			} else {
-				Nodo<T> nuevoNodo = new Nodo<T>(dato, nodoBase.getSiguiente());
-				nodoBase.getSiguiente().setAnterior(nuevoNodo);
-				nodoBase.setSiguiente(nuevoNodo);
-				tamano++;
-			}
-
-		}
-	}
-
-	/**
-	 * Agregar dato a estructura antes de un dato especificado
-	 * 
-	 * @param dato
-	 *            - valor a ingresar en la estructura
-	 * @param datoAnterior
-	 *            - valor que se tomara como base para asignar antes de el
-	 */
-	public void insertarAntesDe(T dato, T datoAnterior) {
-		Nodo<T> nodoBase = buscar(datoAnterior);
-		if (nodoBase != null) {
-			// Si el nodo es la cabeza
-			if (nodoBase.getAnterior() == null) {
-				insertarPrimero(dato);
-			} else {
-				Nodo<T> nodoAnterior = nodoBase.getAnterior();
-				Nodo<T> nuevoNodo = new Nodo<T>(dato, nodoBase);
-				nodoAnterior.setSiguiente(nuevoNodo);
-				nuevoNodo.setAnterior(nodoAnterior);
-				nodoBase.setAnterior(nuevoNodo);
-			}
-
-			tamano++;
+	public void insertar(ListaDoble<T> coleccion) {
+		Iterator<T> iterador = coleccion.iterator();
+		while(iterador.hasNext()){
+			insertar(iterador.next());
 		}
 	}
 
@@ -299,63 +265,6 @@ public class ListaDobleOrdenada<T> implements Iterable<T> {
 		}
 
 		return nodoEncontrado;
-	}
-
-	public void insertarOrdenado(T dato) {
-		Nodo<T> nuevoNodo = new Nodo<T>(dato);
-
-	}
-
-	public void intercambioNodos(Nodo<T> n1, Nodo<T> n2) {
-
-		Nodo<T> n1Anterior = n1.getAnterior();
-		Nodo<T> n1Despues = n1.getSiguiente();
-		Nodo<T> n2Anterior = n2.getAnterior();
-		Nodo<T> n2Despues = n2.getSiguiente();
-
-		if (n1 == cabeza) {
-			cola = n1;
-		}
-
-		if (n2 == cabeza) {
-			cola = n1;
-		}
-
-		if (n1 == cola) {
-			cabeza = n2;
-		}
-
-		if (n2 == cola) {
-			cabeza = n1;
-		}
-
-		n1.setAnterior(n1Anterior);
-		n1.setSiguiente(n1Despues);
-
-		n2.setAnterior(n2Anterior);
-		n2.setSiguiente(n2Despues);
-
-	}
-
-	/**
-	 * a negative integer, menor zero, igual or a positive integer mayot
-	 */
-	public void ordenar() {
-		Nodo<T> nodoBase = cabeza;
-		while (nodoBase.getSiguiente() != null) {
-
-			if (nodoBase.compareTo(nodoBase.getSiguiente().getDato()) == 1) {
-
-		
-				Nodo<T> nodoSiguiente = nodoBase.getSiguiente();
-				Nodo<T> aux = nodoBase;
-
-			}
-			System.out.println(nodoBase.getDato() + " => " + nodoBase.getSiguiente().getDato());
-
-			nodoBase = nodoBase.getSiguiente();
-
-		}
 	}
 
 	/**

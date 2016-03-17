@@ -24,33 +24,30 @@ public class Cola<T> {
 			nuevoNodo = new Nodo<T>(dato);
 			primero = ultimo = nuevoNodo;
 		} else {
-			nuevoNodo = new Nodo<T>(dato,ultimo,null);
+			nuevoNodo = new Nodo<T>(dato, ultimo, null);
 			ultimo.setAnterior(nuevoNodo);
 			ultimo = nuevoNodo;
 
-			
-			
 		}
 		tamano++;
 	}
-	
-	public T dequeve(){
-		T dato  = null;
-		if (!estaVacia()){
+
+	public T dequeve() {
+		T dato = null;
+		if (!estaVacia()) {
 			dato = primero.getDato();
 			primero = primero.getAnterior();
-			if ( primero != null){
+			if (primero != null) {
 				primero.setSiguiente(null);
 			}
-			
-		
+
 			tamano--;
-		
+
 		}
-		
+
 		return dato;
 	}
-	
+
 	/**
 	 * Obtener valor de la Cabeza de la Estructura
 	 * 
@@ -58,6 +55,15 @@ public class Cola<T> {
 	 */
 	public T obtenerPrimero() {
 		return primero == null ? null : primero.getDato();
+	}
+
+	/**
+	 * Método que obtiene la cantidad de elementos de la Estructura
+	 * 
+	 * @return tamano , numero de elementos de la estructura
+	 */
+	public int getTamano() {
+		return tamano;
 	}
 
 }

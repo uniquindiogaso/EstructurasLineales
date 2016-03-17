@@ -60,7 +60,7 @@ public class Pila<T> {
 
 	public T pop1() {
 		//TODO no eliminar si la pila esta vacia
-		T dato = top.getDato();
+		T dato = peek();
 		if (!estaVacia()) {
 			top = top.getSiguiente();
 			tamano--;
